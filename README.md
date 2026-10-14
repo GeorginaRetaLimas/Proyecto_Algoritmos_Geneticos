@@ -124,7 +124,64 @@ La suite cubre:
 
 ---
 
-## 4. Diferencias y Correcciones respecto al Código C++ Original del Libro
+## 4. Uso del Proyecto 2 (AG Real)
+
+El Proyecto 2 implementa la optimización continua con **representación real**, eliminando la discretización binaria y ofreciendo 4 operadores de cruce avanzados: **SBX**, **Aritmético**, **Discreto Uniforme** y **Un Punto**, además de **mutación uniforme**.
+
+### 4.1 Ejecutar la Interfaz Gráfica (GUI)
+
+```bash
+python -m Proyecto_2
+# o bien:
+python -m proyecto2
+# o directamente:
+python -m Proyecto_2.app
+```
+
+#### Características específicas de la interfaz del Proyecto 2:
+* **Selector dinámico de operador de cruce**: Al seleccionar cada operador se despliegan sus parámetros específicos:
+  * **SBX**: Exponente de distribución $n_{sbx}$ (por defecto 1.0).
+  * **Aritmético**: Factor de ponderación $\alpha \in [0, 1]$ o modo aleatorio por gen.
+  * **Discreto Uniforme**: Probabilidad de intercambio gen a gen $p_u$ (por defecto 0.5).
+  * **Un Punto**: Aviso visible de advertencia si se prueba con funciones de 1 variable (donde no hay punto de corte).
+* **Modo «⚡ Comparar 4 Operadores»**: Con un solo clic, ejecuta los 4 operadores de cruce sobre la misma población inicial y semilla, superponiendo sus 4 curvas de convergencia en la gráfica con leyenda de colores y presentando una tabla comparativa con el mejor valor, error y tiempo de cada uno.
+* **Control de velocidad y animación**: Presets de **10 Minutos (Exposición)**, **1 Minuto**, **10 Segundos** y **Máxima Velocidad**.
+* **Visualización en vivo**:
+  * **Gráfica A**: Curva continua para 1D, mapa para 2D o diagrama de barras de coordenadas del mejor cromosoma vs vector óptimo en multivariable ($n > 2$).
+  * **Gráfica B**: Curvas en tiempo real de convergencia + óptimo teórico.
+* **Exportación**: Botones para guardar imagen PNG de las gráficas e historial de evolución en CSV.
+
+---
+
+### 4.2 Ejecutar el Estudio Comparativo por Línea de Comandos
+
+```bash
+# Estudio completo con N = 30 repeticiones por configuración:
+python -m Proyecto_2.estudio --runs 30
+
+# Modo rápido de verificación:
+python -m Proyecto_2.estudio --quick
+```
+
+Genera en `informe/`:
+* `informe/estudio_proyecto2.md`: Informe analítico comparativo completo.
+* `informe/p2_comparativa_4_operadores.png`: Gráfico comparativo de error de los 4 cruces sobre 8 funciones.
+* `informe/p2_escalado_dimension_v2.png` y `p2_escalado_dimension_v4.png`: Gráficos de escalabilidad frente a la dimensión $n \in \{2, 5, 10, 20\}$.
+* `informe/p2_operador_*.csv`: Tablas de resultados estadísticos por operador.
+
+---
+
+### 4.3 Ejecutar Pruebas Automatizadas
+
+```bash
+pytest Proyecto_2/tests/
+# o ejecutar toda la suite de ambos proyectos:
+pytest
+```
+
+---
+
+## 5. Diferencias y Correcciones respecto al Código C++ Original del Libro
 
 El código C++ del Apéndice B del libro presenta varias inconsistencias lógicas y errores de implementación. En esta traducción a Python se resolvieron meticulosamente manteniendo la fidelidad al marco conceptual:
 
